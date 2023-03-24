@@ -6,6 +6,8 @@ import { Footer } from './components/Footer';
 import { Home } from './components/Home';
 import { Login } from './components/Login';
 import { Register } from './components/Register';
+import { Canvas } from './components/Canvas';
+
 function App() {
     return (
         <>
@@ -16,8 +18,10 @@ function App() {
                     <Route path ='/' element= { <Home/> }/>
                     <Route path='/drawings' element={<Drawings />}/>
                     <Route path = '/login' element = {<Login/>}/>
-                    <Route path = '/Register' element = {<Register/>}/>
-                    
+                    <Route path = '/register' element = {<Register/>}/>
+                    <Route path = '/canvas' element = {<Canvas 
+                    width={1000}
+                    height={800}/>}/>
                 </Routes>
                
                 <Footer />
