@@ -1,4 +1,4 @@
-export const Content = ()=>{
+export const Home = ()=>{
     return (
         <div ClassName="wrapper row2">
   <div id="container" ClassName="clear">

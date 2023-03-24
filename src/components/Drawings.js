@@ -1,4 +1,4 @@
-export const Service=()=>{
+export const Drawings=()=>{
     return (
     <section id="services" className="clear">
     <article className="one_third">
