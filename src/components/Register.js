@@ -1,4 +1,4 @@
-export const Login= ()=>{
+export const Register= ()=>{
     return (
     <div className=".login-form">
       <form >
@@ -13,6 +13,10 @@ export const Login= ()=>{
           <input type="password" name="password" required />
           {/* {renderErrorMessage("pass")} */}
         </div>
+        <div className="login-form">
+          <label>Repeat Password </label>
+          <input type="password" name="repassword" required />
+          </div>
         <div className="login-form">
           <input type="submit" />
         </div>
