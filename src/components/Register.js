@@ -17,14 +17,14 @@ export const Register= ()=>{
         </div>
         <div className="login-form">
           <label>Password </label>
-          <input type="password" name="password" required />
+          <input type="password" placeholder="********" name="password" required />
           {/* {renderErrorMessage("pass")} */}
         </div>
     
 
         <div className="login-form">
           <label>Repeat Password </label>
-          <input type="password" name="repassword" required />
+          <input type="password" name="repassword" placeholder="********" required />
           </div>
           <div className="login-form">
           <label>Country </label>
