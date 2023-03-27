@@ -16,7 +16,9 @@ export const Login= ()=>{
         <div className="login-form">
           <input type="submit" />
         </div>
+       
       </form>
+      <th text-align="auto">click here</th>
     </div>
   )
 }

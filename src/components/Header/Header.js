@@ -1,4 +1,4 @@
-import {Navigation} from './Navigation'
+import {Navigation} from '../Navigation/Navigation'
 export const Header = ()=>{
     return (
     <div className="#hgroup">
