@@ -23,9 +23,9 @@ export const  Canvas = () => {
         ctx.lineWidth = width;
         ctx.strokeStyle = color;
         ctx.moveTo(start.x, start.y);
-        console.log(start.x);
+       
         ctx.lineTo(end.x, end.y);
-        console.log(end.x);
+        
         ctx.stroke();
 
         ctx.fillStyle = color;
@@ -39,8 +39,8 @@ export const  Canvas = () => {
         <div id='canvas-container'>
         <canvas
 
-            width={1000}
-            height={800}
+            width={800}
+            height={600}
             onMouseDown={onCanvasMouseDown}
             style={canvasStyle}
             ref={setCanvasRef}
