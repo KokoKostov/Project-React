@@ -1,4 +1,4 @@
-import {useOnDraw} from './CanvasHooks';
+import {useOnDraw} from '../../hooks/CanvasHooks';
 
 export const  Canvas = () => {
 

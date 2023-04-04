@@ -1,0 +1,26 @@
+{
+    "1": { 
+    "_id":"1",
+    "name": "Blue-white Parrot",
+    "author": "Budu Larbi Ernest",
+    "style": "Mexican",
+    "image": "https://images1.novica.net/pictures/5/p431813_2a_400.jpg",
+    "description": "Its just a blue parrot."
+    },
+    "2": {
+    "_id":"2",
+    "name": "Blue-white Parrot",
+    "author": "Budu Larbi Ernest",
+    "style": "Mexican",
+    "image": "https://images1.novica.net/pictures/5/p431813_2a_400.jpg",
+    "description": "Its just a blue parrot."
+    },
+    "3": {
+    "_id":"3",
+    "name": "Blue-white Parrot",
+    "author": "Budu Larbi Ernest",
+    "style": "Mexican",
+    "image": "https://images1.novica.net/pictures/5/p431813_2a_400.jpg",
+    "description": "Its just a blue parrot."
+    }
+}

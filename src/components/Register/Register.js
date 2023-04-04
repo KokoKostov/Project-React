@@ -1,36 +1,65 @@
-import { CountrySelector } from "./CountrySelector"
+
+import { useContext } from "react";
+import { FormSub } from "../../hooks/FormSub";
+import { AuthContext } from "../../context/AuthContext";
 
 export const Register= ()=>{
+  const { onRegisterSubmit } = useContext(AuthContext);
+  const { value, changeHandler, onSubmit } = FormSub({
+      
+    username: '',
+      email: '',
+      password: '',
+      repassword: '',
+  }, onRegisterSubmit);
+ 
     return (
     <div className=".login-form">
-      <form >
-      {/* onSubmit={handleSubmit} */}
+      <form id= "register" method="post" onSubmit={onSubmit}>
+      
         <div className="login-form">
           <label>Username </label>
-          <input type="text" placeholder="username" name="username" required />
-          {/* {renderErrorMessage("uname")} */}
+          <input 
+          type="text"
+           placeholder="username"
+            name="username"
+            value={value.Username}
+            onChange={changeHandler}
+             required />
+       
         </div>
         <div className="login-form">
           <label>Email </label>
-          <input type="email" placeholder="email@gmail.com" name="email" required />
-          {/* {renderErrorMessage("uname")} */}
+          <input type="email"
+           placeholder="email@gmail.com"
+            name="email"
+            value={value.email}
+            onChange={changeHandler}
+             required />
+          
         </div>
         <div className="login-form">
           <label>Password </label>
-          <input type="password" placeholder="********" name="password" required />
-          {/* {renderErrorMessage("pass")} */}
+          <input type="password"
+           placeholder="********"
+            name="password"
+            value={value.password}
+            onChange={changeHandler}
+             required />
+       
         </div>
     
 
         <div className="login-form">
           <label>Repeat Password </label>
-          <input type="password" name="repassword" placeholder="********" required />
+          <input type="password"
+           name="repassword"
+           placeholder="********"
+           value={value.repassword}
+           onChange={changeHandler}
+            required />
           </div>
-          <div className="login-form">
-          <label>Country </label>
-          <CountrySelector/>
-                      {/* {renderErrorMessage("pass")} */}
-        </div>
+        
         <div className="login-form">
           <input type="submit" />
         </div>

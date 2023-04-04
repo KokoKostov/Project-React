@@ -1,11 +1,13 @@
-import { DrawingItem } from "./DrawingItem"
 
-export const Drawings=({
-  drawings
-})=>{
-    if(drawings.length <=0){
-      return null
-    }
+import { useContext } from "react"
+import { DrawingItem } from "./DrawingItem"
+import { AuthContext } from "../../context/AuthContext"
+
+
+export const Drawings=()=>{
+  const{ drawings} = useContext(AuthContext)
+  
+
     return (
     <section id="services" className="clear">
     <article className="one_third"> All paintings
