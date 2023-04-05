@@ -70,7 +70,8 @@ export function useOnDraw(onDraw) {
 
     return {
         setCanvasRef,
-        onCanvasMouseDown
+        onCanvasMouseDown,
+        canvasRef
     }
 
 };

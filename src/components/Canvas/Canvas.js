@@ -1,58 +1,31 @@
-import {useOnDraw} from '../../hooks/CanvasHooks';
+import { CanvasBoard } from "./CanvasBoard"
 
-export const  Canvas = () => {
-
-    const {
-        setCanvasRef,
-        onCanvasMouseDown
-    } = useOnDraw(onDraw);
-
-    function onDraw(ctx, point, prevPoint) {
-        drawLine(prevPoint, point, ctx, '#000000', 5);
-    }
-
-    function drawLine(
-        start,
-        end,
-        ctx,
-        color,
-        width
-    ) {
-        start = start ?? end;
-        ctx.beginPath();
-        ctx.lineWidth = width;
-        ctx.strokeStyle = color;
-        ctx.moveTo(start.x, start.y);
-       
-        ctx.lineTo(end.x, end.y);
-        
-        ctx.stroke();
-
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.arc(start.x, start.y, 2, 0, 2 * Math.PI);
-        ctx.fill();
-
-    }
-
+export const  Canvas= ()=>{
     return(
-        <div id='canvas-container'>
-        <canvas
 
-            width={800}
-            height={600}
-            onMouseDown={onCanvasMouseDown}
-            style={canvasStyle}
-            ref={setCanvasRef}
-        />
+    <form action="/action_page.php">
+      <h1>SIGN UP</h1>
+      <CanvasBoard/>
+      <div className="icon">
+        <i className="fas fa-user-circle"></i>
+      </div>
+      <div className="formcontainer">
+      <div className="container">
+        <label htmlFor="drawingName"><strong>Drawing Name</strong></label>
+        <input typeof="text" placeholder="name" name="uname" required/>
+        <label htmlFor="style"><strong>style</strong></label>
+        <input typeof="text" placeholder="style" name="mail" required/>
+        <label htmlFor="description"><strong>description</strong></label>
+        <input typeof="password" placeholder="description" name="psw" required/>
+
         </div>
-        
-    );
+      <button typeof="submit"><strong>Upload</strong></button>
+      <div className="container" >
+      
+      </div>
+      </div>
+    </form>
+    
 
-}
-
-
-
-const canvasStyle = {
-    border: "1px solid black"
+    )
 }

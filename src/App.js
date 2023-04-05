@@ -77,6 +77,8 @@ function App() {
         onRegisterSubmit,
         onLogout,
         drawings,
+        authorization,
+        drawService,
         userId: auth._id,
         token: auth.accessToken,
         userEmail: auth.email,
@@ -98,7 +100,7 @@ function App() {
                     <Route path='/drawings' element={<Drawings/>} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
-                    <Route path='/canvas' element={<Canvas />}
+                    <Route path='/Canvas' element={<Canvas />}
                     />
                 </Routes>
 
