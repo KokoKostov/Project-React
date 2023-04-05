@@ -12,6 +12,7 @@ import { Register } from './components/Register/Register';
 import { Canvas } from './components/Canvas/Canvas';
 import { ErrorPage } from './components/404/ErrorPage';
 import { useEffect, useState } from 'react';
+import { OnLogoutClick } from './components/Logout/OnLogoutClick'
 
 
 
@@ -29,14 +30,20 @@ function App() {
                 setDrawings(result)
             });         
     }, [])
+    const onLogout = async()=>{
+            await authorization.logout()
+
+            setAuth({});
+          
+    }
 
     const onLoginSubmit = async (data) => {
         try {
-            console.log(data);
+            
             const result = await authorization.login(data);
             
             setAuth(result);
-            console.log(auth);
+          
             navigate('/');
         } catch (error) {
 
@@ -45,7 +52,7 @@ function App() {
     };
     const onRegisterSubmit = async (value) => {
 
-        console.log(value);
+       
         const { repassword, ...registerData } = value;
         if (repassword !== registerData.password) {
             return;
@@ -55,7 +62,7 @@ function App() {
             
             const result = await authorization.register(registerData);
 
-            setAuth(result);
+            setAuth([]);
 
             navigate('/');
         
@@ -63,25 +70,28 @@ function App() {
             console.log(error);
         }
     };
-    const context={
+    const contextAuth={
         onLoginSubmit,
         onRegisterSubmit,
+        onLogout,
         drawings,
         userId: auth._id,
         token: auth.accessToken,
         userEmail: auth.email,
         isAuthenticated: !!auth.accessToken
     }
-    console.log(auth);
+    console.log(contextAuth);
+   
     return (
  <>
-        <AuthContext.Provider value={context}>
+        <AuthContext.Provider value={contextAuth}>
             <div id="homepage">
                 
                 <Header />
                 <Routes>
                     <Route path='*' element={<ErrorPage />} />
                     <Route path='/' element={<Home />} />
+                    <Route path='/logout' element={<OnLogoutClick />} />
                     <Route path='/drawings' element={<Drawings/>} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
