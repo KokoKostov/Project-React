@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom"
+
 export const Home = ()=>{
     return (
         <div className="wrapper row2">
   <div id="container" className="clear">
  
-    <section id="slider"><a href="/"><img src="images/demo/960x360.gif" alt=""/></a></section>
+    <section id="slider"><Link to="/"><img src="images/demo/960x360.gif" alt=""/></Link></section>
     
       <section id="intro" className="last clear">
         <article>

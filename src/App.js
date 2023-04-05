@@ -1,4 +1,5 @@
 import styles from './styles/layout.css'
+import { useLocalStorage } from './hooks/useLocalStorage'
 import { authService } from './services/authService'
 import { AuthContext } from './context/AuthContext'
 import {drawServiceFactory} from './services/drawServiceFactory'
@@ -12,7 +13,8 @@ import { Register } from './components/Register/Register';
 import { Canvas } from './components/Canvas/Canvas';
 import { ErrorPage } from './components/404/ErrorPage';
 import { useEffect, useState } from 'react';
-import { OnLogoutClick } from './components/Logout/OnLogoutClick'
+import { Logout } from './components/Logout/Logout'
+
 
 
 
@@ -20,9 +22,9 @@ import { OnLogoutClick } from './components/Logout/OnLogoutClick'
 function App() {
     const navigate = useNavigate()
     const [drawings, setDrawings] = useState([])
-    const [auth, setAuth] = useState([])
-    const authorization = authService(auth.token)
-    const drawService = drawServiceFactory(auth.token)
+    const [auth, setAuth] = useLocalStorage('auth', {});
+    const authorization = authService(auth.accessToken)
+    const drawService = drawServiceFactory(auth.accessToken)
     useEffect(() => {
         drawService.getAll()
             .then(result => {
@@ -80,7 +82,8 @@ function App() {
         userEmail: auth.email,
         isAuthenticated: !!auth.accessToken
     }
-    console.log(contextAuth);
+   
+
    
     return (
  <>
@@ -91,7 +94,7 @@ function App() {
                 <Routes>
                     <Route path='*' element={<ErrorPage />} />
                     <Route path='/' element={<Home />} />
-                    <Route path='/logout' element={<OnLogoutClick />} />
+                    <Route path='/logout' element={<Logout />} />
                     <Route path='/drawings' element={<Drawings/>} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />

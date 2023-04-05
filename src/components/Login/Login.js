@@ -1,12 +1,12 @@
 import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
-import { FormSub } from "../../hooks/FormSub"
+import { UseForm } from "../../hooks/UseForm"
 
 
 export const Login = () => {
 
   const { onLoginSubmit } = useContext(AuthContext)
-  const { value, changeHandler, onSubmit } = FormSub({
+  const { value, changeHandler, onSubmit } = UseForm({
     email: '',
     password: ''
   }, onLoginSubmit)

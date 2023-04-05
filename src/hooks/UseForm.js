@@ -1,10 +1,11 @@
 import { useState } from "react";
 
-export const FormSub = (initValue,onSubmitHandler)=>{
+export const UseForm = (initValue,onSubmitHandler)=>{
     const [value, setValue] = useState(initValue);
     const changeHandler = (e)=>{
         setValue(state => ({...state, [e.target.name]: e.target.value}));
        
+
     }
     const onSubmit=(e)=>{
         e.preventDefault()
