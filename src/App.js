@@ -1,4 +1,5 @@
 import styles from './styles/layout.css'
+import { getStorage,ref,uploadBytes, getDownloadURL } from 'firebase/storage'
 import { useLocalStorage } from './hooks/useLocalStorage'
 import { authService } from './services/authService'
 import { AuthContext } from './context/AuthContext'
@@ -14,6 +15,7 @@ import { Canvas } from './components/Canvas/Canvas';
 import { ErrorPage } from './components/404/ErrorPage';
 import { useEffect, useState } from 'react';
 import { Logout } from './components/Logout/Logout'
+import { UseOnDraw } from './hooks/CanvasHooks'
 
 
 
@@ -32,11 +34,30 @@ function App() {
                 setDrawings(result)
             });         
     }, [])
+    console.log(drawings);
     const onLogout = async()=>{
             await authorization.logout()
 
             setAuth({});
           
+    }
+
+    const onDrawingSubmit = async (data)=>{
+        console.log(data);
+        
+        try{
+         
+       const newDrawing = await drawService.create(data)
+        setDrawings((state)=>[...state,newDrawing]);
+        navigate('/')
+          
+    
+    
+      
+           
+        }catch(error){
+            console.log(error);
+        }
     }
 
     const onLoginSubmit = async (data) => {
@@ -76,6 +97,7 @@ function App() {
         onLoginSubmit,
         onRegisterSubmit,
         onLogout,
+        onDrawingSubmit,
         drawings,
         authorization,
         drawService,

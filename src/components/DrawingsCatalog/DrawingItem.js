@@ -6,12 +6,13 @@ export const DrawingItem = ({
     author,
     style,
     image,
-    description
+    description,
+    _ownerId
 
 
 }) => {
     return (
-         <figure><img src={image} width="600" height="400" alt={name} style={{ border: "1px solid black"}} />
+         <figure><img src={image} width="600" height="400" alt={name} style={{ border: "1px solid black"}}  />
         <figcaption>
           <h2>{name}-</h2>
           <h3>{author}</h3>
