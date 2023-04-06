@@ -6,6 +6,7 @@ export const DrawingItem = ({
     author,
     style,
     image,
+    email,
     description,
     _ownerId
 
@@ -17,7 +18,7 @@ export const DrawingItem = ({
           <h2>{name}-</h2>
           <h3>{author}</h3>
           <p>{style}</p>
-          <p>{description}</p>
+          
           
           <footer className="more"><Link to={`/drawings/${_id}`} role="button">Details &raquo;</Link></footer>
         </figcaption>

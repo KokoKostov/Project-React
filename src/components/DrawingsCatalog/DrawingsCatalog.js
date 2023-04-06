@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthContext"
 
 export const Drawings=()=>{
   const{ drawings} = useContext(AuthContext)
-  
+  console.log(drawings);
 
     return (
     <section id="services" className="clear">

@@ -12,12 +12,13 @@ import { useOnDraw } from "../../hooks/CanvasHooks";
 
 
 export const Canvas = () => {
-  // const userEmail = useContext(AuthContext)
+  const {userEmail} = useContext(AuthContext)
 
   const { onDrawingSubmit,drawings } = useContext(AuthContext)
   const { value, changeHandler } = UseForm({
 
     image: '',
+    author: '',
     name: '',
     style: '',
     description: ''
@@ -38,7 +39,7 @@ export const Canvas = () => {
     // Add the download URL to the form data
     const formData = {
       ...value,
-
+      author: userEmail,
       image: imageUrl,
     };
 
@@ -124,7 +125,7 @@ export const Canvas = () => {
   return (
 
     <form action="/action_page.php" onSubmit={onSubmit}>
-      <h1>SIGN UP</h1>
+      <h1>Create your drawing!</h1>
       <div id='canvas-container'>
         <canvas
 

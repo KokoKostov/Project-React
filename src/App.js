@@ -16,6 +16,7 @@ import { ErrorPage } from './components/404/ErrorPage';
 import { useEffect, useState } from 'react';
 import { Logout } from './components/Logout/Logout'
 import { UseOnDraw } from './hooks/CanvasHooks'
+import { DrawingDetails } from './components/DrawingDetails/DrawingDetails'
 
 
 
@@ -34,7 +35,7 @@ function App() {
                 setDrawings(result)
             });         
     }, [])
-    console.log(drawings);
+    
     const onLogout = async()=>{
             await authorization.logout()
 
@@ -43,7 +44,7 @@ function App() {
     }
 
     const onDrawingSubmit = async (data)=>{
-        console.log(data);
+        
         
         try{
          
@@ -93,11 +94,20 @@ function App() {
             console.log(error);
         }
     };
+
+    const onDeleteConfirm=(id)=>{
+        setDrawings(state => state.filter(game => game._id !== id));
+        
+        navigate('/drawings')
+    }
+
+
     const contextAuth={
         onLoginSubmit,
         onRegisterSubmit,
         onLogout,
         onDrawingSubmit,
+        onDeleteConfirm,
         drawings,
         authorization,
         drawService,
@@ -122,8 +132,9 @@ function App() {
                     <Route path='/drawings' element={<Drawings/>} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/register' element={<Register />} />
-                    <Route path='/Canvas' element={<Canvas />}
-                    />
+                    <Route path='/Canvas' element={<Canvas />}/>
+                    <Route path='/drawings/:drawingId' element={<DrawingDetails />}/>
+                    
                 </Routes>
 
                 <Footer />
