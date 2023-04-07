@@ -15,7 +15,7 @@ import { Canvas } from './components/Canvas/Canvas';
 import { ErrorPage } from './components/404/ErrorPage';
 import { useEffect, useState } from 'react';
 import { Logout } from './components/Logout/Logout'
-import { UseOnDraw } from './hooks/CanvasHooks'
+import { DrawingEdit } from './components/DrawingEdit/DrawingEdit'
 import { DrawingDetails } from './components/DrawingDetails/DrawingDetails'
 
 
@@ -100,6 +100,14 @@ function App() {
         
         navigate('/drawings')
     }
+    const onDrawingEditSubmit = async (values) => {
+        const result = await drawService.edit(values._id, values);
+
+        setDrawings(state => state.map(x => x._id === values._id ? result : x))
+
+        navigate(`/drawings/${values._id}`);
+    };
+
 
 
     const contextAuth={
@@ -108,6 +116,7 @@ function App() {
         onLogout,
         onDrawingSubmit,
         onDeleteConfirm,
+        onDrawingEditSubmit,
         drawings,
         authorization,
         drawService,
@@ -134,6 +143,8 @@ function App() {
                     <Route path='/register' element={<Register />} />
                     <Route path='/Canvas' element={<Canvas />}/>
                     <Route path='/drawings/:drawingId' element={<DrawingDetails />}/>
+                    <Route path='/drawings/:drawingId/edit' element={<DrawingEdit />}/>
+                    
                     
                 </Routes>
 
