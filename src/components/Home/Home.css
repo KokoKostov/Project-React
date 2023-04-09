@@ -27,4 +27,8 @@
   .caption .btn {
     margin-top: 20px;
   }
+  .btn-primary{
+    text-align: center;
+    height: 2000;
+  }
   

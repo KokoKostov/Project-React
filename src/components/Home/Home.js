@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import './Home.css';
+import { Button } from "react-bootstrap";
 
 export const Home = ({drawings}) => {
   const lastDrawing = drawings[drawings.length-1];
@@ -18,11 +19,11 @@ export const Home = ({drawings}) => {
               <img src={lastDrawing.image} alt={lastDrawing.name} className="latest-drawing-image" />
               </div>
               <div className="caption">
-                <h3>{lastDrawing.name}</h3>
-                <p>By {lastDrawing.author}</p>
-                <p>{lastDrawing.description}</p>
+                <h3>Name: {lastDrawing.name}</h3>
+                <p>By: {lastDrawing.author}</p>
+                <p>Description: {lastDrawing.description}</p>
                 <p>
-                  <Link to={`/drawings/${lastDrawing._id}`} className="btn btn-primary" role="button">Details &raquo;</Link>
+                  <Link to={`/drawings/${lastDrawing._id}`} className="btn btn-primary" >Details &raquo;</Link>
                 </p>
               </div>
             </div>

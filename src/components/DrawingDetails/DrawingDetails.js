@@ -71,9 +71,9 @@ export const DrawingDetails = () => {
             <div className="drawing-container">
                 <img className="drawing-image" src={drawing.image} alt={drawing.name} />
                 <h1>{drawing.name}</h1>
-                <h2>{drawing.author}</h2>
-                <p>{drawing.style}</p>
-                <p>{drawing.description}</p>
+                <h2>By: {drawing.author}</h2>
+                <p>In Style: {drawing.style}</p>
+                <p>Description: {drawing.description}</p>
                 </div>
                 <div className="details-comments" >
                 {userId === drawing._ownerId && (
@@ -111,7 +111,7 @@ export const DrawingDetails = () => {
                         drawing.comments.map((x) => (
                             <Card style={{maxWidth:500, margin:"auto"} }>
 
-                        {x.author.email}    :     
+                        {x.author.email} :     
                              <Card.Body key={x._id} className="comment"  >
                               
                                    {x.comment}
