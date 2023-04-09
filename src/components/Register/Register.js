@@ -1,69 +1,77 @@
-
 import { useContext } from "react";
-import { UseForm } from "../../hooks/UseForm";
+import { useForm } from "../../hooks/useForm";
 import { AuthContext } from "../../context/AuthContext";
+import { Form, Button } from "react-bootstrap";
+import './register.css'
 
-export const Register= ()=>{
+export const Register = () => {
   const { onRegisterSubmit } = useContext(AuthContext);
-  const { value, changeHandler, onSubmit } = UseForm({
-      
-    username: '',
-      email: '',
-      password: '',
-      repassword: '',
-  }, onRegisterSubmit);
- 
-    return (
-    <div className=".login-form">
-      <form id= "register" method="post" onSubmit={onSubmit}>
-      
-        <div className="login-form">
-          <label>Username </label>
-          <input 
-          type="text"
-           placeholder="username"
+  const { value, changeHandler, onSubmit } = useForm(
+    {
+      username: "",
+      email: "",
+      password: "",
+      repassword: "",
+    },
+    onRegisterSubmit
+  );
+
+  return (
+    <div className="register-form-container">
+      <Form id="register" method="post" onSubmit={onSubmit}>
+        <Form.Group className="mb-3">
+          <h1>Register</h1>
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="username"
             name="username"
             value={value.Username}
             onChange={changeHandler}
-             required />
-       
-        </div>
-        <div className="login-form">
-          <label>Email </label>
-          <input type="email"
-           placeholder="email@gmail.com"
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="email@gmail.com"
             name="email"
             value={value.email}
             onChange={changeHandler}
-             required />
-          
-        </div>
-        <div className="login-form">
-          <label>Password </label>
-          <input type="password"
-           placeholder="********"
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="********"
             name="password"
             value={value.password}
             onChange={changeHandler}
-             required />
-       
-        </div>
-    
+            required
+          />
+        </Form.Group>
 
-        <div className="login-form">
-          <label>Repeat Password </label>
-          <input type="password"
-           name="repassword"
-           placeholder="********"
-           value={value.repassword}
-           onChange={changeHandler}
-            required />
-          </div>
-        
-        <div className="login-form">
-          <input type="submit" />
-        </div>
-      </form>
+        <Form.Group className="mb-3">
+          <Form.Label>Repeat Password</Form.Label>
+          <Form.Control
+            type="password"
+            name="repassword"
+            placeholder="********"
+            value={value.repassword}
+            onChange={changeHandler}
+            required
+          />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Register
+        </Button>
+      </Form>
     </div>
-  )
-}
+  );
+};

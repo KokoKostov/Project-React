@@ -1,29 +1,48 @@
 import { Link } from "react-router-dom"
 import { AuthContext } from '../../context/AuthContext'
 import { useContext } from 'react'
+import { Nav } from "react-bootstrap"
 
 export const Navigation = () => {
     const {isAuthenticated,userEmail}=useContext(AuthContext)
+
+    
     return (
-        <ul>
-            <li> <Link className=".navbar a" to="/">Home</Link></li>
+       
+        (
+       
+            <>
+                 <Nav.Item >
+                 <Link className="navbar-link" to="/">Home</Link>
+                 </Nav.Item>
+                  
+                
+                     {!isAuthenticated && (
+                         
+                           <>
+                             <Nav.Item as="li"> <Link className="navbar-link" to="/login">Login</Link> </Nav.Item>
+                             <Nav.Item as="li"> <Link className="navbar-link" to="/register">Register</Link> </Nav.Item>
+                         </>
+                                 
+                     )}
+                     {isAuthenticated && (
+                        <>
+                             <Nav.Item as="li"> <Link className="navbar-link" to="/canvas">Start Drawing</Link></Nav.Item>
+                             <Nav.Item as="li"> <Link className="navbar-link" to="/logout">Log Out</Link></Nav.Item>
+                             </>
+                     )}
+                 
+                     <Nav.Item as="li"> <Link className="navbar-link" to="/drawings">Drawings</Link></Nav.Item>
+                
+                 </>
            
-                {!isAuthenticated && (
-                    
-                       <>
-                        <li> <Link className=".navbar a" to="/login">Login</Link></li>
-                        <li> <Link className=".navbar a" to="/register">Register</Link></li>
-                        </>
-                )}
-                {isAuthenticated && (
-                   <>
-                        <li> <Link className=".navbar a" to="/canvas">Start Drawing</Link></li>
-                         <li> <Link className=".navbar a" to="/logout">Log Out</Link></li>
-                        </>
-                )}
-            
-            <li> <Link className=".navbar a" to="/drawings">Drawings</Link></li>
-           
-        </ul>
+         )
+      
     )
+    
 }
+
+
+ 
+
+

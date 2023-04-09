@@ -1,0 +1,24 @@
+#canvas-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 186px;
+  }
+  
+  .btn-primary {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    height: 50px;
+    
+  }
+  .can{
+    text-align: center;
+  }
+  #title {
+    text-align: center;
+    justify-content: center;
+    padding-left: 186px;
+  }
+  
+  

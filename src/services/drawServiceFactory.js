@@ -7,6 +7,7 @@ export const drawServiceFactory = (token) => {
 
     const getAll = async () => {
         const result = await request.get(baseUrl);
+        
         const drawings = Object.values(result);
         return drawings;
     };
@@ -25,11 +26,7 @@ export const drawServiceFactory = (token) => {
         return result;
     };
     
-    const addComment = async (drawingId, data) => {
-        const result = await request.post(`${baseUrl}/${drawingId}/comments`, data);
     
-        return result;
-    };
 
     const edit = (drawingId, data) => request.put(`${baseUrl}/${drawingId}`, data);
 
@@ -41,7 +38,7 @@ export const drawServiceFactory = (token) => {
         getOne,
         create,
         edit,
-        addComment,
+        
         delete: deleteDrawing,
     };
 }

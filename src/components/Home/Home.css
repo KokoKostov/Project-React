@@ -1,0 +1,30 @@
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .thumbnail img {
+    width: 800px;
+    height: 600px;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .caption {
+    text-align: center;
+    padding-top: 20px;
+  }
+  
+  .caption h3 {
+    margin-top: 0;
+  }
+  
+  .caption p {
+    margin-bottom: 0;
+  }
+  
+  .caption .btn {
+    margin-top: 20px;
+  }
+  

@@ -1,0 +1,19 @@
+.register-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: top;
+    height: 80vh;
+  }
+  
+  .form-control {
+    
+        width: 120%;
+        height: 50px;
+        font-size: 18px;
+      
+  }
+  h1{
+    padding-bottom: 10px;
+  }
+  
+  

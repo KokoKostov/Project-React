@@ -1,5 +1,6 @@
-import styles from './styles/layout.css'
-import { getStorage,ref,uploadBytes, getDownloadURL } from 'firebase/storage'
+// import styles from '../public/styles/styles.css'
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useLocalStorage } from './hooks/useLocalStorage'
 import { authService } from './services/authService'
 import { AuthContext } from './context/AuthContext'
@@ -14,6 +15,8 @@ import { Register } from './components/Register/Register';
 import { Canvas } from './components/Canvas/Canvas';
 import { ErrorPage } from './components/404/ErrorPage';
 import { useEffect, useState } from 'react';
+
+
 import { Logout } from './components/Logout/Logout'
 import { DrawingEdit } from './components/DrawingEdit/DrawingEdit'
 import { DrawingDetails } from './components/DrawingDetails/DrawingDetails'
@@ -22,9 +25,13 @@ import { DrawingDetails } from './components/DrawingDetails/DrawingDetails'
 
 
 
+
+
 function App() {
     const navigate = useNavigate()
     const [drawings, setDrawings] = useState([])
+    
+    // const [,setCurrentError]= useState('')
     const [auth, setAuth] = useLocalStorage('auth', {});
     const authorization = authService(auth.accessToken)
     const drawService = drawServiceFactory(auth.accessToken)
@@ -33,13 +40,21 @@ function App() {
             .then(result => {
                 
                 setDrawings(result)
-            });         
+                
+            });    
+           
     }, [])
     
     const onLogout = async()=>{
+        try{
+
             await authorization.logout()
 
             setAuth({});
+        }catch(error){
+            alert(error)
+            console.log(error);
+        }
           
     }
 
@@ -48,8 +63,8 @@ function App() {
         
         try{
          
-       const newDrawing = await drawService.create(data)
-        setDrawings((state)=>[...state,newDrawing]);
+       const drawings = await drawService.create(data)
+        setDrawings((state)=>[...state,drawings]);
         navigate('/')
           
     
@@ -57,6 +72,7 @@ function App() {
       
            
         }catch(error){
+            alert(error)
             console.log(error);
         }
     }
@@ -65,47 +81,63 @@ function App() {
         try {
             
             const result = await authorization.login(data);
-            
             setAuth(result);
-          
-            navigate('/');
-        } catch (error) {
-
+            navigate('/')
+        }catch(error){
+            alert(error.message)
+            // setCurrentError(error.message)
             console.log(error);
+            
         }
     };
     const onRegisterSubmit = async (value) => {
 
        
         const { repassword, ...registerData } = value;
-        if (repassword !== registerData.password) {
-            return;
-        }
+        
 
         try {
-            
+            if (repassword !== registerData.password) {
+                alert("Password and Repassword dont match!")
+                return
+            }
             const result = await authorization.register(registerData);
 
-            setAuth([]);
+                setAuth(result)
 
             navigate('/');
         
         } catch (error) {
+            alert(error.message)
+            // setCurrentError(error)
             console.log(error);
         }
     };
 
     const onDeleteConfirm=(id)=>{
-        setDrawings(state => state.filter(game => game._id !== id));
-        
-        navigate('/drawings')
+        try{
+
+            setDrawings(state => state.filter(drawing => drawing._id !== id));
+            
+            
+            navigate('/drawings')
+        }
+        catch(error){
+            alert(error.message)
+            navigate('/drawings')
+        }
     }
     const onDrawingEditSubmit = async (values) => {
-        const result = await drawService.edit(values._id, values);
+        try{
+            const result = await drawService.edit(values._id, values);
 
-        setDrawings(state => state.map(x => x._id === values._id ? result : x))
-
-        navigate(`/drawings/${values._id}`);
+    
+            setDrawings(state => state.map(x => x._id === values._id ? result : x))
+    
+            navigate(`/drawings/${values._id}`);
+        }catch(error){
+            alert (error.message)
+        }
     };
 
 
@@ -114,9 +146,11 @@ function App() {
         onLoginSubmit,
         onRegisterSubmit,
         onLogout,
+        
         onDrawingSubmit,
         onDeleteConfirm,
         onDrawingEditSubmit,
+        
         drawings,
         authorization,
         drawService,
@@ -134,9 +168,10 @@ function App() {
             <div id="homepage">
                 
                 <Header />
+                
                 <Routes>
                     <Route path='*' element={<ErrorPage />} />
-                    <Route path='/' element={<Home />} />
+                    <Route path='/' element={<Home drawings = {drawings} />} />
                     <Route path='/logout' element={<Logout />} />
                     <Route path='/drawings' element={<Drawings/>} />
                     <Route path='/login' element={<Login />} />

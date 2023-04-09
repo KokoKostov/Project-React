@@ -2,6 +2,7 @@
 import { useContext } from "react"
 import { DrawingItem } from "./DrawingItem"
 import { AuthContext } from "../../context/AuthContext"
+import './DrawingItem'
 
 
 export const Drawings=()=>{
@@ -10,7 +11,8 @@ export const Drawings=()=>{
 
     return (
     <section id="services" className="clear">
-    <article className="one_third"> All paintings
+      <h1>All paintings</h1>
+    <article className="one_third"> 
      {drawings.map(x=> <DrawingItem key={x._id} {...x}/>)
 
      }

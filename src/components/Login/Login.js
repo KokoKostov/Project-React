@@ -1,50 +1,55 @@
-import { useContext } from "react"
+import { useContext,useState } from "react"
 import { AuthContext } from "../../context/AuthContext"
-import { UseForm } from "../../hooks/UseForm"
+import { useForm } from "../../hooks/useForm"
+import { Form, Button, } from "react-bootstrap"
+import './login.css'
+
 
 
 export const Login = () => {
 
-  const { onLoginSubmit } = useContext(AuthContext)
-  const { value, changeHandler, onSubmit } = UseForm({
+  const { onLoginSubmit,currentError } = useContext(AuthContext)
+
+  const { value, changeHandler, onSubmit } = useForm({
     email: '',
     password: ''
   }, onLoginSubmit)
+  
+ 
 
-  return (
-    <div className=".login-form">
-      <form method="POST" onSubmit={onSubmit}>
+  
 
-        <div className="login-form">
-          <label>Email </label>
-          <input
-          placeholder="peter@abv.bg"
-            type="text"
+  return(
+    <div className="login-form-container">
+     
+      <Form method="POST" onSubmit={onSubmit}>
+        
+      <h1>Login</h1>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control size="lg" type="email" placeholder="Enter email"
             name="email"
             value={value.email}
-            onChange={changeHandler}
+            onChange={changeHandler} />
+        </Form.Group>
 
-
-            required />
-
-        </div>
-        <div className="login-form">
-          <label>Password </label>
-          <input
-           placeholder="123456"
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control placeholder="Password" size="lg"
             type="password"
             name={"password"}
             value={value.password}
             onChange={changeHandler}
             required />
+        </Form.Group>
+        {currentError && <p>{currentError}</p>}
+    
 
-        </div>
-        <div className="login-form">
-          <input type="submit" />
-        </div>
-        
-      </form>
-     
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
+      
     </div>
   )
 }

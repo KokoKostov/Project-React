@@ -1,0 +1,26 @@
+.custom-navbar {
+    font-size: 38px;
+    padding: 20px; /* adjust as necessary */
+    justify-content: end;
+  }
+  .navbar-link {
+    padding: 10px;
+    font-size: 25px;
+    
+  }
+  
+  .navbar-nav {
+    margin-left: auto;
+    
+  }
+  .navbar a {
+    color: #FFFFFF; /* sets the text color to white */
+  }
+  
+  .navbar a:hover {
+    color: #45c711; /* sets the text color to red when hovering over a link */
+  
+}
+.navbar a {
+    text-decoration: none;
+  }

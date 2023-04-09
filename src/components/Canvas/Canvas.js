@@ -4,18 +4,20 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { app } from '../../firebase';
 import { AuthContext } from '../../context/AuthContext';
 import { useContext } from 'react';
-import { UseForm } from "../../hooks/UseForm";
+import { useForm } from "../../hooks/useForm";
 import { useOnDraw } from "../../hooks/CanvasHooks";
+import { Button, Card, Form } from 'react-bootstrap';
+import './Canvas.css'
 
 
 
 
 
 export const Canvas = () => {
-  const {userEmail} = useContext(AuthContext)
-
-  const { onDrawingSubmit,drawings } = useContext(AuthContext)
-  const { value, changeHandler } = UseForm({
+  const { userEmail } = useContext(AuthContext)
+  const [currentColor, setCurrentColor] = useState({})
+  const { onDrawingSubmit, drawings } = useContext(AuthContext)
+  const { value, changeHandler } = useForm({
 
     image: '',
     author: '',
@@ -25,27 +27,30 @@ export const Canvas = () => {
   }, onDrawingSubmit)
 
 
-  const [imageUrl, setImageUrl] = useState('');
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    if(drawings.some((x)=>x.name === value.name)){
-        console.error(`this name already exists`);
-        return
+    if (drawings.some((x) => x.name === value.name)) {
+      console.error(`this name already exists`);
+      return
     }
-    // Call urlHandler to get download URL for canvas image
     const imageUrl = await urlHandler();
 
 
-    // Add the download URL to the form data
+
     const formData = {
       ...value,
       author: userEmail,
-      image: imageUrl,
-    };
+      image: imageUrl
 
-    // Call onDrawingSubmit with the form data
+    };
+    console.log(formData);
+
+
     onDrawingSubmit(formData);
   };
+
+
   const {
 
     setCanvasRef,
@@ -55,7 +60,7 @@ export const Canvas = () => {
   } = useOnDraw(onDraw);
 
   function onDraw(ctx, point, prevPoint) {
-    drawLine(prevPoint, point, ctx, '#000000', 5);
+    drawLine(prevPoint, point, ctx, `${currentColor}`, 5);
   }
 
   function drawLine(
@@ -81,104 +86,175 @@ export const Canvas = () => {
     ctx.fill();
 
   }
+   const onColorChange=(e)=>{
 
+  
+    const currentColor= e.target.value
+    setCurrentColor(currentColor)
+  }
   const urlHandler = async () => {
     const canvas = canvasRef.current;
 
     try {
 
-      // Create a root reference
+
       const storage = getStorage();
-      // Create a reference to 'mountains.jpg'
+
       const mountainsRef = ref(storage, `${value.name}`);
 
-      // Create a reference to 'images/mountains.jpg'
+
       const mountainImagesRef = ref(storage, `images/${value.name}`);
-
-  
-
-      // Convert canvas to blob
       const blob = await new Promise((resolve) =>
         canvas.toBlob(resolve, 'image/png')
       );
-
-      // Create a new file from the blob
       const file = new File([blob], 'canvas-image.png', { type: 'image/png' });
-
-      // Upload the file to Firebase Storage
       const storageRef = ref(storage, `${value.name}`);
       const snapshot = await uploadBytes(storageRef, file);
-
-      // Get the download URL of the uploaded file
       const downloadUrl = await getDownloadURL(storageRef);
-
-      // Return the download URL
       return downloadUrl;
     } catch (error) {
       console.error('Error uploading canvas image:', error);
-      // Handle the error here
     }
+
   };
 
 
 
-  return (
-
-    <form action="/action_page.php" onSubmit={onSubmit}>
-      <h1>Create your drawing!</h1>
-      <div id='canvas-container'>
-        <canvas
-
-          width={800}
-          height={600}
-          onMouseDown={onCanvasMouseDown}
-          style={canvasStyle}
-          ref={setCanvasRef}
-          name={"image"}
-
-
-        />
+  return ( <Form onSubmit={onSubmit} id='can'>
+      <h1 id ="title">Create your drawing!</h1>
+    
+    <div id="canvas-container" >
+      
+      <canvas id='canvas'
+        width={800}
+        height={600}
+        onMouseDown={onCanvasMouseDown}
+        style= {canvasStyle}
+        ref={setCanvasRef}
+        name={"image"}
+      />
+    
+      <div className="color-container">
+      <Form.Label htmlFor="exampleColorInput">Color picker</Form.Label>
+  <Form.Control
+   name="color0"
+    type="color"
+    id="exampleColorInput"
+    defaultValue="#000000"
+    title="Choose your color"
+    onClick={()=>setCurrentColor("#000000")}
+    onChange={onColorChange}
+  />
+  <Form.Control
+    name="color1"
+    type="color"
+    id="exampleColorInput"
+    defaultValue="#FF2D00"
+    title="Choose your color"
+    onClick={(value)=>setCurrentColor(value)}
+    onChange={onColorChange}
+  />
+  <Form.Control
+   name="color2"
+    type="color"
+    id="exampleColorInput"
+    defaultValue="#00FF0F"
+    title="Choose your color"
+    onClick={()=>setCurrentColor("#00FF0F")}
+    onChange={onColorChange}
+  />
+  <Form.Control
+   name="color3"
+    type="color"
+    id="exampleColorInput"
+    defaultValue="#0013FF"
+    title="Choose your color"
+    onClick={()=>setCurrentColor("#0013FF")}
+    onChange={onColorChange}
+  />
+  <Form.Control
+   name="color4"
+    type="color"
+    id="exampleColorInput"
+    defaultValue="#6A0355"
+    title="Choose your color"
+    onClick={()=>setCurrentColor("#6A0355")}
+    onChange={onColorChange}
+  />
+   <Form.Control
+   name="color5"
+    type="color"
+    id="exampleColorInput"
+    defaultValue="#FFFFFF"
+    title="Choose your color"
+    onClick={()=>setCurrentColor("#FFFFFF")}
+    onChange={onColorChange}
+  />
+       
       </div>
-      <div className="icon">
-        <i className="fas fa-user-circle"></i>
-      </div>
-      <div className="formcontainer">
-        <div className="container">
-          <label htmlFor="drawingName"><strong>Drawing Name</strong></label>
-          <input typeof="text"
+    </div>
+    <div className="icon">
+      <i className="fas fa-user-circle"></i>
+    </div>
+    <div className="formcontainer">
+      <div className="container">
+        <Form.Group>
+          <Form.Label>
+            <strong>Drawing Name</strong>
+          </Form.Label>
+          <Form.Control
+            type="text"
             placeholder="name"
             name={"name"}
             value={value.name}
             onChange={changeHandler}
-
-            required />
-          <label htmlFor="style"><strong>style</strong></label>
-          <input typeof="text"
+            required
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>
+            <strong>Style</strong>
+          </Form.Label>
+          <Form.Control
+            type="text"
             placeholder="style"
             name={"style"}
             value={value.style}
             onChange={changeHandler}
-            required />
-          <label htmlFor="description"><strong>description</strong></label>
-          <input typeof="text"
+            required
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>
+            
+            <strong>Description</strong>
+           
+          </Form.Label>
+     
+          <Form.Control
+        
+            type="text"
             placeholder="description"
             name={"description"}
             value={value.description}
             onChange={changeHandler}
-
-            required />
-
-        </div>
-        <button typeof="submit" ><strong>Upload</strong></button>
-        <div className="container" >
-
-        </div>
+            required
+          />
+          
+        </Form.Group>
       </div>
-    </form>
-
-
-  )
+      <Button variant="primary" type="submit" id='btn-primary'>
+        <strong>Upload</strong>
+      </Button>
+      <div className="container"></div>
+    </div>
+    </Form>)
 }
-const canvasStyle = {
-  border: "1px solid black"
+const canvasStyle= {  
+ 
+  border: "1px solid black",
+ 
+ 
+    
+
 }
